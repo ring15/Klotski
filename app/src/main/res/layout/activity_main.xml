@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.founq.sdk.klotski.KlotskiView
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+        android:layout_height="500dp"
+        app:lineColor="@color/purple"
+        app:lineHeight="4dp"
+        app:numColor="@color/text_color"
+        app:numSize="25sp"
+        app:viewBackgroundColor="@color/background_color" />
 
     <TextView
         android:id="@+id/tv_time"

@@ -1,0 +1,11 @@
+<resources>
+
+    <declare-styleable name="KlotskiView">
+        <attr name="numColor" format="color" />
+        <attr name="numSize" format="dimension" />
+        <attr name="viewBackgroundColor" format="color" />
+        <attr name="lineColor" format="color" />
+        <attr name="lineHeight" format="dimension" />
+    </declare-styleable>
+
+</resources>
