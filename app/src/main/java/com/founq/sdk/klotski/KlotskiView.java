@@ -30,6 +30,8 @@ public class KlotskiView extends View {
     private int width;
     private int height;
 
+    private boolean canMove = false;
+
     private Paint mTextPaint;
     private Paint mLinePaint;
 
@@ -127,6 +129,7 @@ public class KlotskiView extends View {
      */
     public void startGame(int level) {
         this.level = level;
+        canMove = true;
         createArray();
         invalidate();
         if (mCallback != null) {
@@ -214,6 +217,9 @@ public class KlotskiView extends View {
 
     //通过坐标判断移动方向，并确定移动方块在数组中的位置
     private void direction(float startX, float startY, float endX, float endY) {
+        if (!canMove) {
+            return;
+        }
         //获取坐标差值
         float x = startX - endX;
         float y = startY - endY;
@@ -280,6 +286,7 @@ public class KlotskiView extends View {
         mNumList.set(position, 0);
         invalidate();
         if (isEqual(mNumList, startList)) {
+            canMove = false;
             if (mCallback != null) {
                 mCallback.onSuccess();
             }
