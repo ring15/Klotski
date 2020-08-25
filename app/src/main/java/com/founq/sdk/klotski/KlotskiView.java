@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -45,6 +44,9 @@ public class KlotskiView extends View {
     //初始数组
     private List<Integer> startList;
 
+    //回调
+    private KlotskiCallback mCallback;
+
     public KlotskiView(Context context) {
         this(context, null);
     }
@@ -73,9 +75,6 @@ public class KlotskiView extends View {
 
         mLinePaint = new Paint();
         mLinePaint.setColor(lineColor);
-
-        //生成新数组
-        createArray();
     }
 
     private int getMySize(int defaultSize, int measureSpec) {
@@ -121,11 +120,23 @@ public class KlotskiView extends View {
         drawTextAndLine(mNumList, canvas);
     }
 
-    //设置游戏难度，重新生成数组并重新绘制
-    public void setGameLevel(int level) {
+    /**
+     * 设置游戏难度，重新生成数组并重新绘制
+     *
+     * @param level 游戏等级
+     */
+    public void startGame(int level) {
         this.level = level;
         createArray();
         invalidate();
+        if (mCallback != null) {
+            mCallback.onStart();
+        }
+    }
+
+    //设置回调
+    public void setCallback(KlotskiCallback callback) {
+        mCallback = callback;
     }
 
     //生成初始数组和随机数组
@@ -269,7 +280,9 @@ public class KlotskiView extends View {
         mNumList.set(position, 0);
         invalidate();
         if (isEqual(mNumList, startList)) {
-            Log.e("test", "成功");
+            if (mCallback != null) {
+                mCallback.onSuccess();
+            }
         }
     }
 
